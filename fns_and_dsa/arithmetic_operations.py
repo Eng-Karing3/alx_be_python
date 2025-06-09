@@ -1,4 +1,4 @@
-def perform_operation(num1: float, num2: float, operation: str):
+def perform_operation(num1, num2, operation):
 
     if operation == 'divide':
         # Change starts here: Prioritize the non-zero check
@@ -16,3 +16,8 @@ def perform_operation(num1: float, num2: float, operation: str):
     else:
         # This case handles unexpected operation strings.
         return "Error: Invalid operation."
+
+    return result
+
+values = perform_operation(10, 0, "divide")
+print(values)
