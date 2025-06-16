@@ -14,9 +14,9 @@ class BankAccount:
             raise ValueError("Initial balance must be a non-negative number.")
         self.__account_balance = float(initial_balance) # Ensure internal balance is a float
 
-    def _format_currency(self, amount):
+    def _format_transaction_amount(self, amount):
         """
-        Helper method to format currency amounts.
+        Helper method to format transaction amounts (deposit/withdraw).
         If the amount is a whole number (e.g., 50.0), it's formatted as an integer (e.g., "50").
         Otherwise (e.g., 12.5), it's formatted to two decimal places (e.g., "12.50").
         """
@@ -35,7 +35,7 @@ class BankAccount:
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValueError("Deposit amount must be a positive number.")
         self.__account_balance += amount
-        print(f"Deposited: ${self._format_currency(amount)}")
+        print(f"Deposited: ${self._format_transaction_amount(amount)}") # Use specific helper here
 
     def withdraw(self, amount):
         """
@@ -52,7 +52,7 @@ class BankAccount:
 
         if self.__account_balance >= amount:
             self.__account_balance -= amount
-            print(f"Withdrew: ${self._format_currency(amount)}")
+            print(f"Withdrew: ${self._format_transaction_amount(amount)}") # Use specific helper here
             return True
         else:
             print("Insufficient funds.")
@@ -62,4 +62,8 @@ class BankAccount:
         """
         Prints the current balance of the account in a user-friendly format.
         """
-        print(f"Current Balance: ${self._format_currency(self.__account_balance)}")
+        # Reverting this to always show two decimal places, as it was originally
+        # and the problem statement's example for deposit/withdraw was "50" not "50.00"
+        # but for display it was "[amount]" which could imply 2 decimal places.
+        print(f"Current Balance: ${self.__account_balance:.2f}")
+        
