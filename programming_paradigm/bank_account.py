@@ -12,16 +12,15 @@ class BankAccount:
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValueError("Deposit amount must be a positive number.")
         self.__account_balance += amount
-        return amount  # Return amount so main script can print
 
     def withdraw(self, amount):
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValueError("Withdrawal amount must be a positive number.")
         if self.__account_balance >= amount:
             self.__account_balance -= amount
-            return True, amount
+            return True
         else:
-            return False, None
+            return False
 
     def display_balance(self):
-        return self.__account_balance
+        print(f"Current Balance: ${self.__account_balance:.2f}")
