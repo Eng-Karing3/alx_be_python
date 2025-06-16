@@ -12,11 +12,22 @@ class BankAccount:
         """
         if not isinstance(initial_balance, (int, float)) or initial_balance < 0:
             raise ValueError("Initial balance must be a non-negative number.")
-        self.__account_balance = initial_balance  # Encapsulation: using __ for private attribute
+        self.__account_balance = float(initial_balance) # Ensure internal balance is a float
+
+    def _format_currency(self, amount):
+        """
+        Helper method to format currency amounts.
+        If the amount is a whole number (e.g., 50.0), it's formatted as an integer (e.g., "50").
+        Otherwise (e.g., 12.5), it's formatted to two decimal places (e.g., "12.50").
+        """
+        if amount == int(amount):
+            return str(int(amount))
+        else:
+            return f"{amount:.2f}"
 
     def deposit(self, amount):
         """
-        Deposits the specified amount into the account.
+        Deposits the specified amount to the account.
 
         Args:
             amount (float): The amount to deposit.
@@ -24,7 +35,7 @@ class BankAccount:
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValueError("Deposit amount must be a positive number.")
         self.__account_balance += amount
-        print(f"Deposited: ${amount:.2f}")
+        print(f"Deposited: ${self._format_currency(amount)}")
 
     def withdraw(self, amount):
         """
@@ -38,9 +49,10 @@ class BankAccount:
         """
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValueError("Withdrawal amount must be a positive number.")
+
         if self.__account_balance >= amount:
             self.__account_balance -= amount
-            print(f"Withdrew: ${amount:.2f}")
+            print(f"Withdrew: ${self._format_currency(amount)}")
             return True
         else:
             print("Insufficient funds.")
@@ -50,4 +62,4 @@ class BankAccount:
         """
         Prints the current balance of the account in a user-friendly format.
         """
-        print(f"Current Balance: ${self.__account_balance:.2f}")
+        print(f"Current Balance: ${self._format_currency(self.__account_balance)}")
