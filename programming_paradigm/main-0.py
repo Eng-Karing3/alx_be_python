@@ -29,11 +29,19 @@ def main():
     if command == "deposit" and amount is not None:
         try:
             account.deposit(amount)
+            # REMOVE THE FOLLOWING LINE:
+            # print(f"Deposited: ${amount}")
         except ValueError as e:
             print(f"Error: {e}")
     elif command == "withdraw" and amount is not None:
         try:
+            # The withdraw method already prints success/failure messages
             account.withdraw(amount)
+            # REMOVE THE FOLLOWING BLOCK:
+            # if account.withdraw(amount): # You were calling withdraw twice here if it was kept!
+            #     print(f"Withdrew: ${amount}")
+            # else:
+            #     print("Insufficient funds.")
         except ValueError as e:
             print(f"Error: {e}")
     elif command == "display" and amount is None:
