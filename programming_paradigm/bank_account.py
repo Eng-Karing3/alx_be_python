@@ -14,16 +14,8 @@ class BankAccount:
             raise ValueError("Initial balance must be a non-negative number.")
         self.__account_balance = float(initial_balance) # Ensure internal balance is a float
 
-    def _format_transaction_amount(self, amount):
-        """
-        Helper method to format transaction amounts (deposit/withdraw).
-        If the amount is a whole number (e.g., 50.0), it's formatted as an integer (e.g., "50").
-        Otherwise (e.g., 12.5), it's formatted to two decimal places (e.g., "12.50").
-        """
-        if amount == int(amount):
-            return str(int(amount))
-        else:
-            return f"{amount:.2f}"
+    # Removed _format_transaction_amount helper.
+    # All currency amounts will now be formatted with 2 decimal places.
 
     def deposit(self, amount):
         """
@@ -35,7 +27,8 @@ class BankAccount:
         if not isinstance(amount, (int, float)) or amount <= 0:
             raise ValueError("Deposit amount must be a positive number.")
         self.__account_balance += amount
-        print(f"Deposited: ${self._format_transaction_amount(amount)}") # Use specific helper here
+        # Format to two decimal places, e.g., 50 -> 50.00
+        print(f"Deposited: ${amount:.2f}")
 
     def withdraw(self, amount):
         """
@@ -52,9 +45,11 @@ class BankAccount:
 
         if self.__account_balance >= amount:
             self.__account_balance -= amount
-            print(f"Withdrew: ${self._format_transaction_amount(amount)}") # Use specific helper here
+            # Format to two decimal places, e.g., 20 -> 20.00
+            print(f"Withdrew: ${amount:.2f}")
             return True
         else:
+            # This specific string does not involve an amount, so it's already exact.
             print("Insufficient funds.")
             return False
 
@@ -62,8 +57,5 @@ class BankAccount:
         """
         Prints the current balance of the account in a user-friendly format.
         """
-        # Reverting this to always show two decimal places, as it was originally
-        # and the problem statement's example for deposit/withdraw was "50" not "50.00"
-        # but for display it was "[amount]" which could imply 2 decimal places.
+        # Always format to two decimal places, e.g., 100 -> 100.00
         print(f"Current Balance: ${self.__account_balance:.2f}")
-        
