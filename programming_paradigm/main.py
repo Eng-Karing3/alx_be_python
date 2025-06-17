@@ -1,27 +1,55 @@
-# main.py
 
-import sys
-from robust_division_calculator import safe_divide
+
+from library_management import Book, Library
 
 def main():
     """
-    Main function to parse command line arguments and perform division
-    using the safe_divide function.
+    Demonstrates the functionality of the Library and Book classes.
     """
-    # Check if the correct number of command line arguments is provided
-    if len(sys.argv) != 3:
-        print("Usage: python main.py <numerator> <denominator>")
-        sys.exit(1) # Exit with a non-zero status code to indicate an error
+    # Setup a small library
+    library = Library()
+    library.add_book(Book("Brave New World", "Aldous Huxley"))
+    library.add_book(Book("1984", "George Orwell"))
+    library.add_book(Book("The Great Gatsby", "F. Scott Fitzgerald")) # Adding another book for more testing
 
-    # Get the numerator and denominator from command line arguments
-    numerator = sys.argv[1]
-    denominator = sys.argv[2]
+    # Initial list of available books
+    print("\n--- Available books after initial setup ---")
+    library.list_available_books()
 
-    # Call the safe_divide function to perform the division with error handling
-    result = safe_divide(numerator, denominator)
-    
-    # Print the result or error message returned by safe_divide
-    print(result)
+    # Simulate checking out a book
+    print("\n--- Checking out '1984' ---")
+    library.check_out_book("1984")
+    print("\n--- Available books after checking out '1984' ---")
+    library.list_available_books()
+
+    # Try to check out a book that's already checked out
+    print("\n--- Attempting to check out '1984' again ---")
+    library.check_out_book("1984")
+
+    # Try to check out a book that doesn't exist
+    print("\n--- Attempting to check out 'Nonexistent Book' ---")
+    library.check_out_book("Nonexistent Book")
+
+    # Simulate returning a book
+    print("\n--- Returning '1984' ---")
+    library.return_book("1984")
+    print("\n--- Available books after returning '1984' ---")
+    library.list_available_books()
+
+    # Try to return a book that was not checked out
+    print("\n--- Attempting to return 'Brave New World' (not checked out) ---")
+    library.return_book("Brave New World")
+
+    # Check out and return multiple times
+    print("\n--- Checking out 'The Great Gatsby' ---")
+    library.check_out_book("The Great Gatsby")
+    print("\n--- Available books after checking out 'The Great Gatsby' ---")
+    library.list_available_books()
+    print("\n--- Returning 'The Great Gatsby' ---")
+    library.return_book("The Great Gatsby")
+    print("\n--- Available books after returning 'The Great Gatsby' ---")
+    library.list_available_books()
+
 
 if __name__ == "__main__":
     main()
