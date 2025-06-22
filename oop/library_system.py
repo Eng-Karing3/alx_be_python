@@ -53,7 +53,6 @@ class EBook(Book):
         Returns a string representation of the EBook object,
         including its file size.
         """
-        # Reuse the base class's string and add specific details
         return f"EBook: {self.title} by {self.author}, File Size: {self.file_size}KB"
 
 class PrintBook(Book):
@@ -80,7 +79,6 @@ class PrintBook(Book):
         Returns a string representation of the PrintBook object,
         including its page count.
         """
-        # Reuse the base class's string and add specific details
         return f"PrintBook: {self.title} by {self.author}, Page Count: {self.page_count}"
 
 class Library:
@@ -106,7 +104,7 @@ class Library:
         """
         if isinstance(book, Book):
             self.books.append(book)
-            print(f"Added '{book.title}' to the library.")
+            # print(f"Added '{book.title}' to the library.") # Removed as it's not in expected output
         else:
             print("Error: Only Book instances (or derived classes) can be added to the library.")
 
@@ -116,14 +114,11 @@ class Library:
         It utilizes the __str__ method of each book object.
         """
         if not self.books:
-            print("The library currently has no books.")
+            # print("The library currently has no books.") # Removed as it's not in expected output
             return
 
-        print("\n--- Books in the Library ---")
+        # print("\n--- Books in the Library ---") # Removed to match exact output
         for book in self.books:
-            # The print() function automatically calls the __str__ method
-            # of the respective book object (Book, EBook, or PrintBook).
             print(book)
-        print("----------------------------")
-
+        # print("----------------------------") # Removed to match exact output
 
