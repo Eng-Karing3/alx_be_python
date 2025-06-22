@@ -1,6 +1,17 @@
+#!/usr/bin/env python3
+"""
+This script tests the functionality of the Book, EBook, PrintBook,
+and Library classes defined in library_system.py.
+It demonstrates creating various book types, adding them to a library,
+and then listing all the books.
+"""
+
 from library_system import Book, EBook, PrintBook, Library
 
 def main():
+    """
+    Main function to demonstrate the library system.
+    """
     # Create a Library instance
     my_library = Library()
 
